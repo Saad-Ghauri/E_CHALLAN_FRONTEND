@@ -2,9 +2,9 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { ShieldAlertIcon } from "lucide-react"
 
 import { useAuth } from "@/components/providers/auth-provider"
+import { Brand } from "@/components/shared/brand"
 import { NavGroup } from "@/components/nav-group"
 import { NavUser } from "@/components/nav-user"
 import {
@@ -28,8 +28,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
               <Link href="/dashboard">
-                <ShieldAlertIcon className="size-5! text-primary" />
-                <span className="text-base font-semibold tracking-tight">Smart Challan</span>
+                <Brand />
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          "app/page.tsx"
+        ],
+        "createdAt": "2026-11-10T19:40:01.309Z",
+        "reason": "assistant: only hit is slate-900 on emerald-400 detection label, about 9:1 contrast"
+      }
+    ]
+  }
+}

@@ -34,11 +34,11 @@ export function StatCard({
           {loading ? (
             <Skeleton className="h-8 w-24" />
           ) : (
-            <p className="text-2xl font-semibold tabular-nums">{value}</p>
+            <p className="font-heading text-3xl font-bold tabular-nums">{value}</p>
           )}
           {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
         </div>
-        <div className={cn("rounded-lg p-2.5", TONES[tone])}>
+        <div className={cn("rounded-xl p-2.5", TONES[tone])}>
           <Icon className="size-5" />
         </div>
       </CardContent>

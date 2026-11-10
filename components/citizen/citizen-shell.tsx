@@ -2,11 +2,12 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { CarIcon, FileTextIcon, GavelIcon, HomeIcon, LogOutIcon, MoonIcon, ShieldAlertIcon, SunIcon } from "lucide-react"
+import { CarIcon, FileTextIcon, GavelIcon, HomeIcon, LogOutIcon, MoonIcon, SunIcon } from "lucide-react"
 import { useTheme } from "next-themes"
 
 import { useAuth } from "@/components/providers/auth-provider"
 import { NotificationBell } from "@/components/notifications/notification-bell"
+import { Brand } from "@/components/shared/brand"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -34,19 +35,18 @@ export function CitizenShell({ children }: { children: React.ReactNode }) {
   const { resolvedTheme, setTheme } = useTheme()
 
   return (
-    <div className="min-h-svh bg-muted/30">
-      <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-5xl items-center gap-3 px-4">
-          <Link href="/citizen" className="flex items-center gap-2 font-semibold tracking-tight">
-            <ShieldAlertIcon className="size-5 text-primary" />
-            <span className="hidden sm:inline">Smart Challan</span>
+    <div className="min-h-svh">
+      <header className="sticky top-0 z-30 glass-bar">
+        <div className="mx-auto flex h-16 max-w-5xl items-center gap-3 px-4">
+          <Link href="/citizen" aria-label="Smart Challan home">
+            <Brand hideNameOnMobile />
           </Link>
 
           <nav className="ml-2 hidden items-center gap-1 md:flex" aria-label="Main">
             {NAV.map(({ href, label, exact }) => {
               const active = exact ? pathname === href : pathname.startsWith(href)
               return (
-                <Button key={href} asChild variant="ghost" size="sm" className={cn(active && "bg-muted font-semibold")}>
+                <Button key={href} asChild variant="ghost" size="sm" className={cn(active && "bg-primary/10 font-semibold text-primary hover:bg-primary/15")}>
                   <Link href={href}>{label}</Link>
                 </Button>
               )
