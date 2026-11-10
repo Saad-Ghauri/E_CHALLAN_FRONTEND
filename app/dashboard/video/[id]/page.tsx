@@ -21,6 +21,7 @@ import { formatClock, formatDateTime } from "@/lib/format"
 import type { VideoJobDetail } from "@/lib/types"
 
 const POLL_MS = 2000
+const plateSummary = (n: number) => `${n} plate${n === 1 ? "" : "s"} read`
 const isRunning = (job: VideoJobDetail | null) => !job || job.status === "queued" || job.status === "processing"
 
 export default function VideoJobPage() {
@@ -97,7 +98,7 @@ export default function VideoJobPage() {
         <>
           <div className="grid gap-4 sm:grid-cols-3">
             <StatCard label="Video length" value={formatClock(job.duration)} hint={`${job.frames_analysed} frames analysed`} icon={ClockIcon} />
-            <StatCard label="Vehicles tracked" value={job.vehicle_count} hint={`${job.tracks.filter((t) => t.plate_number).length} plates read`} icon={CarIcon} tone="success" />
+            <StatCard label="Vehicles tracked" value={job.vehicle_count} hint={plateSummary(job.tracks.filter((t) => t.plate_number).length)} icon={CarIcon} tone="success" />
             <StatCard label="Violations found" value={events.length} hint={`${open} waiting for review`} icon={FlagIcon} tone={open ? "warning" : "default"} />
           </div>
 

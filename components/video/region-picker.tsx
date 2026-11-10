@@ -35,6 +35,7 @@ export function RegionPicker({
 }) {
   const [url, setUrl] = React.useState<string | null>(null)
   const [draft, setDraft] = React.useState<Zone>(null)
+  const [previewFailed, setPreviewFailed] = React.useState(false)
   const overlay = React.useRef<HTMLDivElement>(null)
   const start = React.useRef<[number, number] | null>(null)
 
@@ -42,6 +43,7 @@ export function RegionPicker({
     const objectUrl = URL.createObjectURL(file)
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setUrl(objectUrl)
+    setPreviewFailed(false)
     return () => URL.revokeObjectURL(objectUrl)
   }, [file])
 
@@ -63,7 +65,8 @@ export function RegionPicker({
           muted
           playsInline
           preload="auto"
-          className="block w-full"
+          className="block min-h-32 w-full"
+          onError={() => setPreviewFailed(true)}
           onLoadedMetadata={(event) => {
             event.currentTarget.currentTime = Math.min(0.5, event.currentTarget.duration / 2)
           }}
@@ -109,6 +112,11 @@ export function RegionPicker({
             </div>
           )}
           <span className="absolute top-2 right-2 rounded bg-black/60 px-2 py-0.5 text-xs text-white">Traffic flow {ARROWS[flow]}</span>
+          {previewFailed && (
+            <p className="absolute inset-x-4 top-1/2 -translate-y-1/2 text-center text-sm text-white/80">
+              Your browser cannot preview this video format. The analysis still works; zone drawing needs a preview.
+            </p>
+          )}
         </div>
       </div>
 
