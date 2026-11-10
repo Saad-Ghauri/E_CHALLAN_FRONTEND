@@ -13,6 +13,7 @@ import {
   VideoIcon,
 } from "lucide-react"
 
+import { DetectionScene } from "@/components/public/detection-scene"
 import { ChallanLookup } from "@/components/public/challan-lookup"
 import { PublicHeader } from "@/components/public/public-header"
 import { Button } from "@/components/ui/button"
@@ -40,35 +41,6 @@ const FACTS = [
   { value: "100%", label: "of challans have an audit trail" },
   { value: "0", label: "challans issued without human review" },
 ]
-
-/** Decorative mock of the detection screen: pure CSS, no image. */
-function DetectionPreview() {
-  return (
-    <div className="glass float-slow w-full max-w-sm rounded-2xl p-3" aria-hidden>
-      <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-gradient-to-b from-slate-700 via-slate-800 to-slate-900">
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-slate-900/70" />
-        <div className="absolute bottom-[18%] left-0 h-0.5 w-full border-t-2 border-dashed border-white/30" />
-        <div className="absolute top-[34%] left-[24%] h-[38%] w-[46%] rounded-md border-2 border-emerald-400 shadow-[0_0_24px_-4px_rgba(52,211,153,0.7)]">
-          <span className="absolute -top-6 left-[-2px] rounded bg-emerald-400 px-1.5 py-0.5 text-[10px] font-semibold text-slate-900">car 0.94</span>
-          <div className="absolute inset-x-[18%] bottom-[14%] rounded bg-white/90 py-0.5 text-center font-mono text-[11px] font-bold tracking-widest text-slate-900">
-            LEA-1234
-          </div>
-        </div>
-        <div className="absolute inset-x-0 h-8 bg-gradient-to-b from-transparent via-emerald-300/25 to-transparent" style={{ animation: "scan 3s ease-in-out infinite alternate" }} />
-        <span className="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-black/50 px-2 py-0.5 text-[10px] text-white">
-          <span className="size-1.5 animate-pulse rounded-full bg-red-400" /> Analysing
-        </span>
-      </div>
-      <div className="mt-3 flex items-center justify-between gap-3 px-1">
-        <div>
-          <p className="text-xs text-muted-foreground">Event detected</p>
-          <p className="text-sm font-semibold">Wrong-way driving</p>
-        </div>
-        <span className="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">Needs review</span>
-      </div>
-    </div>
-  )
-}
 
 export default function HomePage() {
   return (
@@ -114,7 +86,7 @@ export default function HomePage() {
               <ChallanLookup />
             </div>
             <div className="hidden w-full justify-start sm:flex lg:mr-10 lg:justify-start">
-              <DetectionPreview />
+              <DetectionScene />
             </div>
           </div>
         </div>

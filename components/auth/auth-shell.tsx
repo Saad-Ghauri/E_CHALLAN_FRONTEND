@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { Loader2Icon, ScanLineIcon, ShieldCheckIcon, ZapIcon } from "lucide-react"
 
 import { useAuth } from "@/components/providers/auth-provider"
+import { AuthDecor } from "@/components/auth/auth-decor"
 import { Brand } from "@/components/shared/brand"
 import { Card, CardContent } from "@/components/ui/card"
 import { homeFor } from "@/lib/routes"
@@ -34,8 +35,9 @@ export function AuthShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex min-h-svh items-center justify-center p-4 md:p-10">
-      <Card className="rise-in w-full max-w-4xl overflow-hidden rounded-3xl p-0">
+    <div className="relative flex min-h-svh items-center justify-center p-4 md:p-10">
+      <AuthDecor />
+      <Card className="rise-in relative w-full max-w-4xl overflow-hidden rounded-3xl p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
           <div className="flex flex-col gap-8 p-6 md:p-10">
             <Link href="/" aria-label="Back to home" className="w-fit">

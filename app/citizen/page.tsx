@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { AlertTriangleIcon, CarIcon, ClockIcon, FileTextIcon, WalletIcon } from "lucide-react"
+import { AlertTriangleIcon, CarIcon, ClockIcon, FileTextIcon, GavelIcon, WalletIcon } from "lucide-react"
 
 import { useAuth } from "@/components/providers/auth-provider"
 import { PageHeader } from "@/components/shared/page-header"
@@ -14,6 +14,12 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { useApi } from "@/hooks/use-api"
 import { formatCurrency, formatDate } from "@/lib/format"
 import type { CitizenChallan, CitizenSummary, Paginated } from "@/lib/types"
+
+const QUICK_ACTIONS = [
+  { href: "/citizen/vehicles", icon: CarIcon, title: "Add a vehicle", text: "Link a plate to see its challans." },
+  { href: "/citizen/challans", icon: FileTextIcon, title: "All challans", text: "Pay online or download the PDF." },
+  { href: "/citizen/appeals", icon: GavelIcon, title: "Appeals", text: "Think a challan is wrong? Appeal it." },
+]
 
 export default function CitizenHomePage() {
   const { user } = useAuth()
@@ -48,6 +54,20 @@ export default function CitizenHomePage() {
         <StatCard label="Overdue" value={s?.overdue_count ?? 0} hint="Past the due date" icon={AlertTriangleIcon} tone="danger" loading={summary.loading} />
         <StatCard label="Paid" value={s?.paid_count ?? 0} hint="Settled challans" icon={FileTextIcon} tone="success" loading={summary.loading} />
         <StatCard label="Pending appeals" value={s?.pending_appeals ?? 0} hint="Awaiting a decision" icon={ClockIcon} loading={summary.loading} />
+      </div>
+
+      <div className="grid gap-3 sm:grid-cols-3">
+        {QUICK_ACTIONS.map(({ href, icon: Icon, title, text }) => (
+          <Link key={href} href={href} className="glass group flex items-start gap-3 rounded-2xl p-4 transition-transform hover:-translate-y-0.5">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+              <Icon className="size-5" />
+            </span>
+            <span>
+              <span className="block font-semibold">{title}</span>
+              <span className="block text-sm text-muted-foreground">{text}</span>
+            </span>
+          </Link>
+        ))}
       </div>
 
       <Card>

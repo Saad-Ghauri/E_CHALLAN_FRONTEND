@@ -81,6 +81,7 @@
     --sidebar-accent-foreground: oklch(0.35 0.14 275);
     --sidebar-border: oklch(0.88 0.02 270 / 0.6);
     --sidebar-ring: oklch(0.65 0.16 275);
+    --grid: oklch(0.45 0.12 275 / 0.07);
     --glass-border: oklch(1 0 0 / 0.7);
     --glass-shadow: 0 8px 32px -12px oklch(0.4 0.15 275 / 0.25);
     --aurora-1: oklch(0.8 0.13 280 / 0.6);
@@ -120,6 +121,7 @@
     --sidebar-accent-foreground: oklch(0.96 0.01 275);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.62 0.15 275);
+    --grid: oklch(1 0 0 / 0.05);
     --glass-border: oklch(1 0 0 / 12%);
     --glass-shadow: 0 8px 32px -12px oklch(0 0 0 / 0.6);
     --aurora-1: oklch(0.4 0.18 280 / 0.45);
@@ -136,9 +138,24 @@
     background-image:
       radial-gradient(60rem 40rem at 8% -8%, var(--aurora-1), transparent 60%),
       radial-gradient(50rem 36rem at 100% 0%, var(--aurora-2), transparent 60%),
-      radial-gradient(46rem 34rem at 50% 108%, var(--aurora-3), transparent 60%);
+      radial-gradient(46rem 34rem at 50% 108%, var(--aurora-3), transparent 60%),
+      radial-gradient(38rem 26rem at 78% 22%, color-mix(in oklab, var(--primary) 12%, transparent), transparent 70%);
     background-attachment: fixed;
     }
+  /* faint engineering grid, fading out towards the edges */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 20%, transparent 75%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 20%, transparent 75%);
+  }
   h1, h2, h3, h4 {
     font-family: var(--font-heading);
     letter-spacing: -0.015em;
@@ -186,10 +203,17 @@
   .rise-in { animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 }
 
+.scene-scan { animation: sweep 3.2s ease-in-out infinite alternate; }
+.scene-drift { animation: drift 6s ease-in-out infinite alternate; }
+.scene-blink { animation: blink 1.4s steps(2, start) infinite; }
+@keyframes sweep { from { transform: translateY(40px); } to { transform: translateY(210px); } }
+@keyframes drift { from { transform: translateY(0); } to { transform: translateY(5px); } }
+@keyframes blink { to { visibility: hidden; } }
+
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes scan { 0% { top: 8%; } 100% { top: 88%; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .float-slow, .rise-in { animation: none; }
+  .float-slow, .rise-in, .scene-scan, .scene-drift, .scene-blink { animation: none; }
 }
