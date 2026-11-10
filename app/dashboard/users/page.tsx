@@ -52,7 +52,11 @@ export default function UsersPage() {
     },
     {
       header: "Role",
-      cell: (u) => <Badge variant={u.role === "admin" ? "default" : "secondary"}>{u.role === "admin" ? "Administrator" : "Officer"}</Badge>,
+      cell: (u) => (
+        <Badge variant={u.role === "admin" ? "default" : "secondary"}>
+          {{ admin: "Administrator", officer: "Officer", citizen: "Citizen" }[u.role]}
+        </Badge>
+      ),
     },
     { header: "Badge", cell: (u) => u.badge_number || "—" },
     { header: "Joined", cell: (u) => formatDate(u.date_joined) },

@@ -1,12 +1,16 @@
 import {
   CarIcon,
+  ChartBarIcon,
   FileTextIcon,
   GavelIcon,
   HistoryIcon,
   LayoutDashboardIcon,
+  ScaleIcon,
   ScanSearchIcon,
+  ScrollTextIcon,
   Settings2Icon,
   UsersIcon,
+  VideoIcon,
   type LucideIcon,
 } from "lucide-react"
 
@@ -18,6 +22,7 @@ export const NAV_SECTIONS: NavSection[] = [
     items: [
       { title: "Dashboard", url: "/dashboard", icon: LayoutDashboardIcon },
       { title: "Detect & Issue", url: "/dashboard/detect", icon: ScanSearchIcon },
+      { title: "Video Analysis", url: "/dashboard/video", icon: VideoIcon },
     ],
   },
   {
@@ -26,6 +31,7 @@ export const NAV_SECTIONS: NavSection[] = [
       { title: "Challans", url: "/dashboard/challans", icon: FileTextIcon },
       { title: "Vehicles", url: "/dashboard/vehicles", icon: CarIcon },
       { title: "Detection Logs", url: "/dashboard/detections", icon: HistoryIcon },
+      { title: "Reports", url: "/dashboard/reports", icon: ChartBarIcon },
     ],
   },
   {
@@ -33,7 +39,9 @@ export const NAV_SECTIONS: NavSection[] = [
     adminOnly: true,
     items: [
       { title: "Violation Types", url: "/dashboard/violations", icon: GavelIcon },
+      { title: "Appeals", url: "/dashboard/appeals", icon: ScaleIcon },
       { title: "Users", url: "/dashboard/users", icon: UsersIcon },
+      { title: "Audit Log", url: "/dashboard/audit", icon: ScrollTextIcon },
     ],
   },
 ]

@@ -6,6 +6,7 @@ import { Loader2Icon, ScanLineIcon, ShieldCheckIcon, ZapIcon } from "lucide-reac
 
 import { useAuth } from "@/components/providers/auth-provider"
 import { Card, CardContent } from "@/components/ui/card"
+import { homeFor } from "@/lib/routes"
 
 const HIGHLIGHTS = [
   { icon: ScanLineIcon, text: "Plate recognition from photos and video" },
@@ -19,7 +20,7 @@ export function AuthShell({ children }: { children: React.ReactNode }) {
   const router = useRouter()
 
   React.useEffect(() => {
-    if (user) router.replace("/dashboard")
+    if (user) router.replace(homeFor(user))
   }, [user, router])
 
   if (loading || user) {

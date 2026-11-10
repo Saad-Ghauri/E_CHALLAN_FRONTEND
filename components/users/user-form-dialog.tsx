@@ -10,6 +10,7 @@ import type { Role, User } from "@/lib/types"
 export const ROLE_OPTIONS: { value: Role; label: string }[] = [
   { value: "officer", label: "Traffic officer" },
   { value: "admin", label: "Administrator" },
+  { value: "citizen", label: "Citizen" },
 ]
 
 type UserForm = {

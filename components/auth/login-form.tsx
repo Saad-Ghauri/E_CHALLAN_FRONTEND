@@ -9,6 +9,7 @@ import { FormField } from "@/components/shared/form-dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useForm } from "@/hooks/use-form"
+import { homeFor } from "@/lib/routes"
 
 export function LoginForm() {
   const { login } = useAuth()
@@ -16,8 +17,7 @@ export function LoginForm() {
   const form = useForm({ email: "", password: "" })
 
   const onSubmit = form.submit(async ({ email, password }) => {
-    await login(email, password)
-    router.replace("/dashboard")
+    router.replace(homeFor(await login(email, password)))
   })
 
   return (
@@ -28,7 +28,7 @@ export function LoginForm() {
       </div>
 
       <FormField label="Email" htmlFor="email" error={form.errors.email}>
-        <Input {...form.bind("email")} type="email" autoComplete="email" placeholder="officer@challan.pk" required />
+        <Input {...form.bind("email")} type="email" autoComplete="email" placeholder="you@example.com" required />
       </FormField>
       <FormField label="Password" htmlFor="password" error={form.errors.password}>
         <Input {...form.bind("password")} type="password" autoComplete="current-password" required />
@@ -39,12 +39,20 @@ export function LoginForm() {
         Sign in
       </Button>
 
-      <p className="text-center text-sm text-muted-foreground">
-        New officer?{" "}
-        <Link href="/signup" className="font-medium text-primary underline-offset-4 hover:underline">
-          Request an account
-        </Link>
-      </p>
+      <div className="space-y-1 text-center text-sm text-muted-foreground">
+        <p>
+          New here?{" "}
+          <Link href="/signup" className="font-medium text-primary underline-offset-4 hover:underline">
+            Create a citizen account
+          </Link>
+        </p>
+        <p>
+          Traffic officer?{" "}
+          <Link href="/signup/officer" className="font-medium text-primary underline-offset-4 hover:underline">
+            Request staff access
+          </Link>
+        </p>
+      </div>
     </form>
   )
 }

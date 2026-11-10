@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input"
 import { api } from "@/lib/api"
 import { useForm } from "@/hooks/use-form"
 
-export function SignupForm() {
+export function OfficerSignupForm() {
   const [done, setDone] = React.useState(false)
   const form = useForm({
     first_name: "",

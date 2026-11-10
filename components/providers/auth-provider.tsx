@@ -11,7 +11,7 @@ type AuthContextValue = {
   /** true until the stored session has been checked */
   loading: boolean
   isAdmin: boolean
-  login: (email: string, password: string) => Promise<void>
+  login: (email: string, password: string) => Promise<User>
   logout: () => void
   setUser: (user: User) => void
 }
@@ -51,6 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const data = await api.post<{ access: string; refresh: string; user: User }>("/auth/login/", { email, password })
     tokenStore.set(data.access, data.refresh)
     setUser(data.user)
+    return data.user
   }, [])
 
   const value = React.useMemo(

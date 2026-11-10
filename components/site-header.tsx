@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation"
 import { MoonIcon, SunIcon } from "lucide-react"
 import { useTheme } from "next-themes"
 
+import { NotificationBell } from "@/components/notifications/notification-bell"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
@@ -19,16 +20,18 @@ export function SiteHeader() {
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mx-2 data-[orientation=vertical]:h-4" />
         <h2 className="text-base font-medium">{titleForPath(pathname)}</h2>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="ml-auto"
-          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-          aria-label="Toggle theme"
-        >
-          <SunIcon className="hidden dark:block" />
-          <MoonIcon className="dark:hidden" />
-        </Button>
+        <div className="ml-auto flex items-center gap-1">
+          <NotificationBell />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            aria-label="Toggle theme"
+          >
+            <SunIcon className="hidden dark:block" />
+            <MoonIcon className="dark:hidden" />
+          </Button>
+        </div>
       </div>
     </header>
   )

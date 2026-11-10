@@ -120,3 +120,11 @@ export const api = {
     return URL.createObjectURL(await res.blob())
   },
 }
+
+/** Download an authenticated file (CSV, PDF…) through the browser's save dialog. */
+export async function downloadFile(path: string, filename: string, params?: Params) {
+  const url = await api.blobUrl(buildUrl(path, params))
+  const link = Object.assign(document.createElement("a"), { href: url, download: filename })
+  link.click()
+  URL.revokeObjectURL(url)
+}

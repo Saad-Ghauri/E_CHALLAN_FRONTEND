@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { AlertTriangleIcon, BanknoteIcon, FileTextIcon, ScanSearchIcon, WalletIcon } from "lucide-react"
+import { AlertTriangleIcon, BanknoteIcon, FileTextIcon, ScaleIcon, ScanSearchIcon, VideoIcon, WalletIcon } from "lucide-react"
 
 import { RecentChallans } from "@/components/dashboard/recent-challans"
 import { TrendChart } from "@/components/dashboard/trend-chart"
@@ -14,8 +14,26 @@ import { useApi } from "@/hooks/use-api"
 import { formatCurrency } from "@/lib/format"
 import type { DashboardStats } from "@/lib/types"
 
+function AttentionStrip({ items }: { items: { show: boolean; href: string; icon: typeof ScaleIcon; text: string }[] }) {
+  const visible = items.filter((item) => item.show)
+  if (!visible.length) return null
+  return (
+    <div className="flex flex-wrap gap-2">
+      {visible.map(({ href, icon: Icon, text }) => (
+        <Link
+          key={href}
+          href={href}
+          className="flex items-center gap-2 rounded-full border bg-amber-500/10 px-3 py-1.5 text-sm text-amber-800 transition-colors hover:bg-amber-500/20 dark:text-amber-300"
+        >
+          <Icon className="size-4" /> {text}
+        </Link>
+      ))}
+    </div>
+  )
+}
+
 export default function DashboardPage() {
-  const { user } = useAuth()
+  const { user, isAdmin } = useAuth()
   const { data, loading } = useApi<DashboardStats>("/dashboard/stats/")
   const totals = data?.totals
 
@@ -66,6 +84,14 @@ export default function DashboardPage() {
           loading={loading}
         />
       </div>
+
+      <AttentionStrip
+        items={[
+          { show: isAdmin && (totals?.pending_appeals ?? 0) > 0, href: "/dashboard/appeals", icon: ScaleIcon, text: `${totals?.pending_appeals} appeal(s) waiting for a decision` },
+          { show: (totals?.video_events_new ?? 0) > 0, href: "/dashboard/video", icon: VideoIcon, text: `${totals?.video_events_new} video event(s) to review` },
+          { show: (totals?.needs_review ?? 0) > 0, href: "/dashboard/detections", icon: ScanSearchIcon, text: `${totals?.needs_review} detection(s) need plate review` },
+        ]}
+      />
 
       <div className="grid gap-4 lg:grid-cols-5">
         <div className="lg:col-span-3">

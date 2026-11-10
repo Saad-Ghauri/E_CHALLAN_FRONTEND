@@ -11,14 +11,22 @@ const ACCEPT = "image/jpeg,image/png,image/bmp,image/webp,video/mp4,video/avi,vi
 const formatSize = (bytes: number) =>
   bytes > 1024 * 1024 ? `${(bytes / 1024 / 1024).toFixed(1)} MB` : `${Math.round(bytes / 1024)} KB`
 
+export const VIDEO_ACCEPT = "video/mp4,video/x-msvideo,video/quicktime,video/x-matroska,video/webm"
+
 export function UploadZone({
   file,
   onFile,
   disabled,
+  accept = ACCEPT,
+  title = "Drop a traffic image or video here, or click to browse",
+  hint = "JPG, PNG, WEBP · MP4, AVI, MOV, MKV · up to 100 MB",
 }: {
   file: File | null
   onFile: (file: File | null) => void
   disabled?: boolean
+  accept?: string
+  title?: string
+  hint?: string
 }) {
   const inputRef = React.useRef<HTMLInputElement>(null)
   const [dragging, setDragging] = React.useState(false)
@@ -87,12 +95,12 @@ export function UploadZone({
       <div className="rounded-full bg-primary/10 p-3 text-primary">
         <UploadCloudIcon className="size-6" />
       </div>
-      <p className="text-sm font-medium">Drop a traffic image or video here, or click to browse</p>
-      <p className="text-xs text-muted-foreground">JPG, PNG, WEBP · MP4, AVI, MOV, MKV · up to 100 MB</p>
+      <p className="text-sm font-medium">{title}</p>
+      <p className="text-xs text-muted-foreground">{hint}</p>
       <input
         ref={inputRef}
         type="file"
-        accept={ACCEPT}
+        accept={accept}
         className="hidden"
         onChange={(event) => {
           pick(event.target.files)
