@@ -7,6 +7,7 @@ import { FormDialog, FormField } from "@/components/shared/form-dialog"
 import { Input } from "@/components/ui/input"
 import { useForm } from "@/hooks/use-form"
 import { api } from "@/lib/api"
+import { formatCnic, formatPlate } from "@/lib/format"
 
 /** Link a vehicle to this account. The CNIC must match the owner CNIC on the vehicle record. */
 export function ClaimVehicleDialog({ onClose, onClaimed }: { onClose: () => void; onClaimed: () => void }) {
@@ -30,17 +31,18 @@ export function ClaimVehicleDialog({ onClose, onClaimed }: { onClose: () => void
       submitting={form.submitting}
       onSubmit={submit}
     >
-      <FormField label="Number plate" htmlFor="plate_number" error={form.errors.plate_number} className="sm:col-span-2">
-        <Input {...form.bind("plate_number")} placeholder="LEA-1234" className="font-mono uppercase" required />
+      <FormField label="Number plate" htmlFor="plate_number" required hint="As written on your number plate, for example LEA-1234." error={form.errors.plate_number} className="sm:col-span-2">
+        <Input {...form.bind("plate_number", formatPlate)} placeholder="LEA-1234" className="font-mono uppercase" autoFocus required />
       </FormField>
       <FormField
         label="Owner CNIC"
         htmlFor="cnic"
+        required
         error={form.errors.cnic || form.errors.detail}
-        hint="Must match the CNIC registered for this vehicle."
+        hint="13 digits, exactly as registered for this vehicle. Not working? Check your registration book, or ask a traffic office to update the record."
         className="sm:col-span-2"
       >
-        <Input {...form.bind("cnic")} placeholder="35202-1234567-1" required />
+        <Input {...form.bind("cnic", formatCnic)} placeholder="35202-1234567-1" inputMode="numeric" required />
       </FormField>
     </FormDialog>
   )

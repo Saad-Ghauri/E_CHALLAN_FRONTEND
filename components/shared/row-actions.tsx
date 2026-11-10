@@ -1,5 +1,6 @@
 import { PencilIcon, Trash2Icon } from "lucide-react"
 
+import { IconTooltip } from "@/components/shared/icon-tooltip"
 import { Button } from "@/components/ui/button"
 
 /** Edit / delete icon buttons for table rows. Omit a handler to hide its button. */
@@ -7,14 +8,18 @@ export function RowActions({ onEdit, onDelete }: { onEdit?: () => void; onDelete
   return (
     <div className="flex justify-end gap-1">
       {onEdit && (
-        <Button variant="ghost" size="icon-sm" onClick={onEdit} aria-label="Edit">
-          <PencilIcon />
-        </Button>
+        <IconTooltip label="Edit">
+          <Button variant="ghost" size="icon-sm" onClick={onEdit} aria-label="Edit">
+            <PencilIcon />
+          </Button>
+        </IconTooltip>
       )}
       {onDelete && (
-        <Button variant="ghost" size="icon-sm" className="text-muted-foreground hover:text-destructive" onClick={onDelete} aria-label="Delete">
-          <Trash2Icon />
-        </Button>
+        <IconTooltip label="Delete">
+          <Button variant="ghost" size="icon-sm" className="text-muted-foreground hover:text-destructive" onClick={onDelete} aria-label="Delete">
+            <Trash2Icon />
+          </Button>
+        </IconTooltip>
       )}
     </div>
   )

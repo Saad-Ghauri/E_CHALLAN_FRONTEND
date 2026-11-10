@@ -4,6 +4,8 @@ import * as React from "react"
 import { FileVideoIcon, ImageIcon } from "lucide-react"
 
 import { DetectionReview } from "@/components/detect/detection-review"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 import { PageContainer, PageHeader } from "@/components/shared/page-header"
 import { DataTable, type Column } from "@/components/shared/data-table"
 import { PlateBadge } from "@/components/shared/plate-badge"
@@ -60,6 +62,11 @@ export default function DetectionLogsPage() {
         onRowClick={setSelected}
         emptyTitle="No detections yet"
         emptyDescription="Upload an image or video on the Detect page to get started."
+        emptyAction={
+          <Button asChild>
+            <Link href="/dashboard/detect">Go to Detect &amp; Issue</Link>
+          </Button>
+        }
         pagination={{ page: list.page, pageCount: list.pageCount, count: list.count, onPageChange: list.setPage }}
       />
 

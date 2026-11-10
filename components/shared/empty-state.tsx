@@ -18,7 +18,7 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed p-10 text-center",
+        "flex flex-col items-center justify-center gap-2 rounded-2xl border border-dashed bg-card/40 p-10 text-center backdrop-blur",
         className
       )}
     >
@@ -27,7 +27,7 @@ export function EmptyState({
       </div>
       <h3 className="font-medium">{title}</h3>
       {description && <p className="max-w-sm text-sm text-muted-foreground">{description}</p>}
-      {action}
+      {action && <div className="mt-2">{action}</div>}
     </div>
   )
 }

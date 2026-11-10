@@ -20,11 +20,11 @@ export function useForm<T extends Record<string, unknown>>(initial: T) {
   }
 
   /** Props for a plain <Input> / <Textarea>. */
-  const bind = (name: keyof T & string) => ({
+  const bind = (name: keyof T & string, format?: (value: string) => string) => ({
     id: name,
     value: (values[name] ?? "") as string,
     onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      set(name, event.target.value as T[typeof name]),
+      set(name, (format ? format(event.target.value) : event.target.value) as T[typeof name]),
     "aria-invalid": Boolean(errors[name]) || undefined,
   })
 

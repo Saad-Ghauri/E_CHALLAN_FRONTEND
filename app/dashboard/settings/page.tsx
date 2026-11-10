@@ -5,6 +5,7 @@ import { Loader2Icon } from "lucide-react"
 
 import { useAuth } from "@/components/providers/auth-provider"
 import { FormField } from "@/components/shared/form-dialog"
+import { PasswordInput } from "@/components/shared/password-input"
 import { PageContainer, PageHeader } from "@/components/shared/page-header"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -75,10 +76,10 @@ function PasswordCard() {
       <CardContent>
         <form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
           <FormField label="Current password" htmlFor="old_password" error={form.errors.old_password}>
-            <Input {...form.bind("old_password")} type="password" autoComplete="current-password" required />
+            <PasswordInput {...form.bind("old_password")} autoComplete="current-password" required />
           </FormField>
-          <FormField label="New password" htmlFor="new_password" error={form.errors.new_password}>
-            <Input {...form.bind("new_password")} type="password" autoComplete="new-password" required />
+          <FormField label="New password" htmlFor="new_password" error={form.errors.new_password} hint="At least 8 characters. Avoid common passwords.">
+            <PasswordInput {...form.bind("new_password")} autoComplete="new-password" required />
           </FormField>
           <div className="sm:col-span-2">
             <Button type="submit" disabled={form.submitting}>

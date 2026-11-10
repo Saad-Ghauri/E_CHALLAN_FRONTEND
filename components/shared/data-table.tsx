@@ -30,6 +30,7 @@ type DataTableProps<T> = {
   onRowClick?: (row: T) => void
   emptyTitle?: string
   emptyDescription?: string
+  emptyAction?: React.ReactNode
   pagination?: { page: number; pageCount: number; count: number; onPageChange: (page: number) => void }
 }
 
@@ -43,10 +44,11 @@ export function DataTable<T>({
   onRowClick,
   emptyTitle = "Nothing here yet",
   emptyDescription = "No records match your filters.",
+  emptyAction,
   pagination,
 }: DataTableProps<T>) {
   if (!loading && rows.length === 0) {
-    return <EmptyState icon={InboxIcon} title={emptyTitle} description={emptyDescription} />
+    return <EmptyState icon={InboxIcon} title={emptyTitle} description={emptyDescription} action={emptyAction} />
   }
 
   return (

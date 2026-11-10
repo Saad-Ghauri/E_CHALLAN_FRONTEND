@@ -21,6 +21,7 @@ export function FormField({
   htmlFor,
   error,
   hint,
+  required,
   className,
   children,
 }: {
@@ -28,12 +29,16 @@ export function FormField({
   htmlFor?: string
   error?: string
   hint?: string
+  required?: boolean
   className?: string
   children: React.ReactNode
 }) {
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
-      <Label htmlFor={htmlFor}>{label}</Label>
+      <Label htmlFor={htmlFor}>
+        {label}
+        {required && <span className="text-destructive" aria-hidden> *</span>}
+      </Label>
       {children}
       {error ? (
         <p role="alert" className="text-xs text-destructive">

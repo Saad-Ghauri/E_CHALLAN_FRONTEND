@@ -76,6 +76,14 @@ export default function DetectPage() {
             <CardDescription>Clear, front or rear shots of the plate give the best OCR accuracy.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            <ol className="flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted-foreground">
+              {["Upload a photo or video", "Check the plate we read", "Issue the challan"].map((step, i) => (
+                <li key={step} className="flex items-center gap-1.5">
+                  <span className="flex size-5 items-center justify-center rounded-full bg-primary/10 font-semibold text-primary">{i + 1}</span>
+                  {step}
+                </li>
+              ))}
+            </ol>
             <UploadZone file={file} onFile={setFile} disabled={processing} />
             <FormField label="Location (optional)" htmlFor="upload-location">
               <Input

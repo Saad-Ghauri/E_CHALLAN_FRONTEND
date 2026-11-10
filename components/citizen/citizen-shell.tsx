@@ -9,6 +9,7 @@ import { useAuth } from "@/components/providers/auth-provider"
 import { NotificationBell } from "@/components/notifications/notification-bell"
 import { Brand } from "@/components/shared/brand"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { IconTooltip } from "@/components/shared/icon-tooltip"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -54,10 +55,10 @@ export function CitizenShell({ children }: { children: React.ReactNode }) {
           </nav>
 
           <div className="ml-auto flex items-center gap-1">
-            <Button variant="ghost" size="icon" onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")} aria-label="Toggle theme">
+            <IconTooltip label="Switch light or dark theme"><Button variant="ghost" size="icon" onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")} aria-label="Switch light or dark theme">
               <SunIcon className="hidden dark:block" />
               <MoonIcon className="dark:hidden" />
-            </Button>
+            </Button></IconTooltip>
             <NotificationBell />
             {user && (
               <DropdownMenu>
@@ -101,7 +102,7 @@ export function CitizenShell({ children }: { children: React.ReactNode }) {
         </nav>
       </header>
 
-      <main className="mx-auto w-full max-w-5xl space-y-6 px-4 py-6">{children}</main>
+      <main className="rise-in mx-auto w-full max-w-5xl space-y-6 px-4 py-6">{children}</main>
     </div>
   )
 }

@@ -9,6 +9,7 @@ import { PlateBadge } from "@/components/shared/plate-badge"
 import { challanStatus, StatusBadge } from "@/components/shared/status-badge"
 import { FilterTabs } from "@/components/shared/toolbar"
 import { Button } from "@/components/ui/button"
+import { formatPlate } from "@/lib/format"
 import { Input } from "@/components/ui/input"
 import { api, ApiError } from "@/lib/api"
 import { formatCurrency, formatDate } from "@/lib/format"
@@ -45,7 +46,7 @@ export function ChallanLookup() {
       <form onSubmit={search} className="flex gap-2">
         <Input
           value={query}
-          onChange={(event) => setQuery(mode === "plate" ? event.target.value.toUpperCase() : event.target.value)}
+          onChange={(event) => setQuery(mode === "plate" ? formatPlate(event.target.value) : event.target.value.toUpperCase())}
           placeholder={mode === "plate" ? "e.g. LEA-1234" : "e.g. CH-20261110-A1B2C3"}
           className="h-10 font-mono text-base tracking-wide"
           aria-label={mode === "plate" ? "Number plate" : "Challan number"}

@@ -7,6 +7,7 @@ import { Loader2Icon } from "lucide-react"
 import { useAuth } from "@/components/providers/auth-provider"
 import { FormField } from "@/components/shared/form-dialog"
 import { Button } from "@/components/ui/button"
+import { PasswordInput } from "@/components/shared/password-input"
 import { Input } from "@/components/ui/input"
 import { useForm } from "@/hooks/use-form"
 import { homeFor } from "@/lib/routes"
@@ -31,7 +32,7 @@ export function LoginForm() {
         <Input {...form.bind("email")} type="email" autoComplete="email" placeholder="you@example.com" required />
       </FormField>
       <FormField label="Password" htmlFor="password" error={form.errors.password}>
-        <Input {...form.bind("password")} type="password" autoComplete="current-password" required />
+        <PasswordInput {...form.bind("password")} autoComplete="current-password" required />
       </FormField>
 
       <Button type="submit" size="lg" disabled={form.submitting}>

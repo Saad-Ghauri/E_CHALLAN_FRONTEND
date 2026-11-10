@@ -1,7 +1,9 @@
 "use client"
 
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 
+import { Button } from "@/components/ui/button"
 import { DataTable, type Column } from "@/components/shared/data-table"
 import { PageHeader } from "@/components/shared/page-header"
 import { PlateBadge } from "@/components/shared/plate-badge"
@@ -54,7 +56,12 @@ export default function CitizenChallansPage() {
         loading={list.loading}
         onRowClick={(c) => router.push(`/citizen/challans/${c.id}`)}
         emptyTitle="No challans found"
-        emptyDescription="Link a vehicle under My vehicles to see its challans here."
+        emptyDescription="Link a vehicle to see its challans here. If you have linked one, you have no challans, which is good news."
+        emptyAction={
+          <Button asChild variant="outline">
+            <Link href="/citizen/vehicles">Add a vehicle</Link>
+          </Button>
+        }
         pagination={{ page: list.page, pageCount: list.pageCount, count: list.count, onPageChange: list.setPage }}
       />
     </>

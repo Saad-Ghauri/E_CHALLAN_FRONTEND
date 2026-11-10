@@ -43,3 +43,21 @@ export function formatClock(seconds: number) {
   const whole = Math.max(0, Math.round(seconds))
   return `${Math.floor(whole / 60)}:${String(whole % 60).padStart(2, "0")}`
 }
+
+/** Input masks: format while the user types so they never have to think about dashes. */
+export const formatCnic = (value: string) => {
+  const d = value.replace(/\D/g, "").slice(0, 13)
+  return [d.slice(0, 5), d.slice(5, 12), d.slice(12)].filter(Boolean).join("-")
+}
+
+export const formatPhone = (value: string) => {
+  const d = value.replace(/\D/g, "").slice(0, 11)
+  return [d.slice(0, 4), d.slice(4)].filter(Boolean).join("-")
+}
+
+export const formatPlate = (value: string) =>
+  value
+    .toUpperCase()
+    .replace(/[^A-Z0-9-]/g, "")
+    .replace(/^([A-Z]{3})(\d{1,4})$/, "$1-$2")
+    .slice(0, 12)

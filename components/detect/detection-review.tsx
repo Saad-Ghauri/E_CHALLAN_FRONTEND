@@ -11,6 +11,7 @@ import { ViolationPicker } from "@/components/detect/violation-picker"
 import { FormField } from "@/components/shared/form-dialog"
 import { StatusBadge } from "@/components/shared/status-badge"
 import { Button } from "@/components/ui/button"
+import { formatPlate } from "@/lib/format"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useViolationTypes } from "@/hooks/use-violation-types"
@@ -129,7 +130,7 @@ export function DetectionReview({
           <div className="flex gap-2">
             <Input
               value={plate}
-              onChange={(event) => setPlate(event.target.value.toUpperCase())}
+              onChange={(event) => setPlate(formatPlate(event.target.value))}
               placeholder="e.g. LEA-1234"
               className="h-9 font-mono text-base font-bold tracking-wider uppercase"
               aria-label="Plate number"

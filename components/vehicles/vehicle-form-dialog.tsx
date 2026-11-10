@@ -2,6 +2,7 @@
 
 import { FormDialog, FormField } from "@/components/shared/form-dialog"
 import { SelectField } from "@/components/shared/select-field"
+import { formatCnic, formatPhone, formatPlate } from "@/lib/format"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
@@ -74,8 +75,8 @@ export function VehicleFormDialog({
       onSubmit={submit}
       className="max-w-2xl"
     >
-      <FormField label="Plate number" htmlFor="plate_number" error={errors.plate_number}>
-        <Input {...bind("plate_number")} placeholder="LEA-1234" className="font-mono uppercase" required />
+      <FormField label="Plate number" htmlFor="plate_number" required hint="Letters then digits, e.g. LEA-1234." error={errors.plate_number}>
+        <Input {...bind("plate_number", formatPlate)} placeholder="LEA-1234" className="font-mono uppercase" required />
       </FormField>
       <FormField label="Vehicle type" htmlFor="vehicle_type">
         <SelectField id="vehicle_type" value={values.vehicle_type} onChange={(v) => form.set("vehicle_type", v as VehicleType)} options={VEHICLE_TYPES} />
@@ -89,14 +90,14 @@ export function VehicleFormDialog({
       <FormField label="Colour" htmlFor="color">
         <Input {...bind("color")} />
       </FormField>
-      <FormField label="Owner name" htmlFor="owner_name" error={errors.owner_name}>
+      <FormField label="Owner name" htmlFor="owner_name" required error={errors.owner_name}>
         <Input {...bind("owner_name")} required />
       </FormField>
-      <FormField label="Owner CNIC" htmlFor="owner_cnic" error={errors.owner_cnic}>
-        <Input {...bind("owner_cnic")} placeholder="35202-1234567-1" />
+      <FormField label="Owner CNIC" htmlFor="owner_cnic" hint="Citizens use this to claim the vehicle. 13 digits." error={errors.owner_cnic}>
+        <Input {...bind("owner_cnic", formatCnic)} placeholder="35202-1234567-1" inputMode="numeric" />
       </FormField>
       <FormField label="Owner phone" htmlFor="owner_phone">
-        <Input {...bind("owner_phone")} />
+        <Input {...bind("owner_phone", formatPhone)} placeholder="0300-1234567" inputMode="tel" />
       </FormField>
       <FormField label="Registration expiry" htmlFor="registration_expiry" error={errors.registration_expiry}>
         <Input {...bind("registration_expiry")} type="date" />

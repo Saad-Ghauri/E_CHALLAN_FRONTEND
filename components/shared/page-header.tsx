@@ -20,5 +20,5 @@ export function PageHeader({
 
 /** Standard padded wrapper every dashboard page renders inside. */
 export function PageContainer({ children }: { children: React.ReactNode }) {
-  return <div className="flex flex-col gap-6 px-4 py-4 md:py-6 lg:px-6">{children}</div>
+  return <div className="rise-in flex flex-col gap-6 px-4 py-4 md:py-6 lg:px-6">{children}</div>
 }

@@ -120,6 +120,11 @@ export default function VideoJobsPage() {
         onRowClick={(job) => router.push(`/dashboard/video/${job.id}`)}
         emptyTitle="No videos analysed yet"
         emptyDescription="Upload a traffic video to find wrong-way driving, illegal parking, triple riding and more."
+        emptyAction={
+          <Button asChild>
+            <Link href="/dashboard/video/new">Analyse your first video</Link>
+          </Button>
+        }
         pagination={{ page: list.page, pageCount: list.pageCount, count: list.count, onPageChange: list.setPage }}
       />
 

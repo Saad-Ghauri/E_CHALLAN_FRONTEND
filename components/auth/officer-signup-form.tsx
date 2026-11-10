@@ -6,6 +6,7 @@ import { CheckCircle2Icon, Loader2Icon } from "lucide-react"
 
 import { FormField } from "@/components/shared/form-dialog"
 import { Button } from "@/components/ui/button"
+import { PasswordInput } from "@/components/shared/password-input"
 import { Input } from "@/components/ui/input"
 import { api } from "@/lib/api"
 import { useForm } from "@/hooks/use-form"
@@ -58,11 +59,11 @@ export function OfficerSignupForm() {
       <FormField label="Email" htmlFor="email" error={form.errors.email}>
         <Input {...form.bind("email")} type="email" autoComplete="email" required />
       </FormField>
-      <FormField label="Badge number" htmlFor="badge_number" error={form.errors.badge_number}>
+      <FormField label="Badge number" htmlFor="badge_number" error={form.errors.badge_number} hint="Printed on your official ID card. An administrator approves your request.">
         <Input {...form.bind("badge_number")} placeholder="TP-1024" />
       </FormField>
       <FormField label="Password" htmlFor="password" error={form.errors.password} hint="At least 8 characters.">
-        <Input {...form.bind("password")} type="password" autoComplete="new-password" required />
+        <PasswordInput {...form.bind("password")} autoComplete="new-password" required />
       </FormField>
 
       <Button type="submit" size="lg" disabled={form.submitting}>

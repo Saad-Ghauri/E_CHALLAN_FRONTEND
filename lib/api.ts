@@ -83,11 +83,16 @@ async function send(method: string, path: string, body?: unknown, params?: Param
   if (body !== undefined && !isForm) headers["Content-Type"] = "application/json"
   if (tokenStore.access) headers.Authorization = `Bearer ${tokenStore.access}`
 
-  const res = await fetch(`${BASE_URL}${buildUrl(path, params)}`, {
-    method,
-    headers,
-    body: body === undefined ? undefined : isForm ? body : JSON.stringify(body),
-  })
+  let res: Response
+  try {
+    res = await fetch(`${BASE_URL}${buildUrl(path, params)}`, {
+      method,
+      headers,
+      body: body === undefined ? undefined : isForm ? body : JSON.stringify(body),
+    })
+  } catch {
+    throw new ApiError("Cannot reach the server. Check your internet connection and try again.", 0)
+  }
 
   if (res.status === 401 && retry && tokenStore.refresh) {
     if (await refreshAccessToken()) return send(method, path, body, params, false)
@@ -97,9 +102,23 @@ async function send(method: string, path: string, body?: unknown, params?: Param
   return res
 }
 
+const STATUS_MESSAGES: Record<number, string> = {
+  403: "You do not have permission to do that.",
+  404: "We could not find what you were looking for.",
+  413: "That file is too large.",
+  429: "Too many attempts. Please wait a minute and try again.",
+}
+
+/** Server text is kept when it is a clear message; generic statuses get a plain-language one. */
+function friendlyMessage(status: number, detail?: string) {
+  if (status === 429) return STATUS_MESSAGES[429]
+  if (status >= 500) return "Something went wrong on our side. Please try again in a moment."
+  return detail ?? STATUS_MESSAGES[status] ?? "Something went wrong. Please try again."
+}
+
 async function toError(res: Response): Promise<ApiError> {
   const data = await res.json().catch(() => ({}))
-  return new ApiError(data.detail ?? "Something went wrong. Please try again.", res.status, data.errors ?? {})
+  return new ApiError(friendlyMessage(res.status, data.detail), res.status, data.errors ?? {})
 }
 
 async function request<T>(method: string, path: string, body?: unknown, params?: Params): Promise<T> {
