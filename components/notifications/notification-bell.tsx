@@ -48,16 +48,18 @@ export function NotificationBell() {
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger asChild>
-        <IconTooltip label="Notifications"><Button variant="ghost" size="icon" className="relative" aria-label={`Notifications${count ? ` (${count} unread)` : ""}`}>
-          <BellIcon />
-          {count > 0 && (
-            <span className="absolute top-1 right-1 flex min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] leading-4 font-semibold text-white">
-              {count > 9 ? "9+" : count}
-            </span>
-          )}
-        </Button></IconTooltip>
-      </DropdownMenuTrigger>
+      <IconTooltip label="Notifications">
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon" className="relative" aria-label={`Notifications${count ? ` (${count} unread)` : ""}`}>
+            <BellIcon />
+            {count > 0 && (
+              <span className="absolute top-1 right-1 flex min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] leading-4 font-semibold text-white">
+                {count > 9 ? "9+" : count}
+              </span>
+            )}
+          </Button>
+        </DropdownMenuTrigger>
+      </IconTooltip>
       <DropdownMenuContent align="end" className="w-80 max-w-[calc(100vw-2rem)]">
         <DropdownMenuLabel className="flex items-center justify-between">
           Notifications
