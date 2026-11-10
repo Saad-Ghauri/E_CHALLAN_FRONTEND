@@ -26,6 +26,8 @@ export function StatCard({
   tone?: keyof typeof TONES
   loading?: boolean
 }) {
+  // A zero needs no attention, so it is shown in the neutral tone rather than warning colours.
+  const quiet = Number(String(value).replace(/\D/g, "")) === 0 && tone !== "default"
   return (
     <Card>
       <CardContent className="flex items-start justify-between gap-3">
@@ -38,7 +40,7 @@ export function StatCard({
           )}
           {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
         </div>
-        <div className={cn("rounded-xl p-2.5", TONES[tone])}>
+        <div className={cn("rounded-xl p-2.5", quiet ? "bg-muted text-muted-foreground" : TONES[tone])}>
           <Icon className="size-5" />
         </div>
       </CardContent>

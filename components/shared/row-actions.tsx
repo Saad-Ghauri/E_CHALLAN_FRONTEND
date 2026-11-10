@@ -12,7 +12,7 @@ export function RowActions({ onEdit, onDelete }: { onEdit?: () => void; onDelete
         </Button>
       )}
       {onDelete && (
-        <Button variant="ghost" size="icon-sm" className="text-destructive hover:text-destructive" onClick={onDelete} aria-label="Delete">
+        <Button variant="ghost" size="icon-sm" className="text-muted-foreground hover:text-destructive" onClick={onDelete} aria-label="Delete">
           <Trash2Icon />
         </Button>
       )}

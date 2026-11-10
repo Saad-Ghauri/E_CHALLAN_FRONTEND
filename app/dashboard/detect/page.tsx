@@ -70,7 +70,7 @@ export default function DetectPage() {
           </CardContent>
         </Card>
       ) : (
-        <Card className="mx-auto w-full max-w-2xl">
+        <Card className="w-full max-w-2xl">
           <CardHeader>
             <CardTitle>Source media</CardTitle>
             <CardDescription>Clear, front or rear shots of the plate give the best OCR accuracy.</CardDescription>

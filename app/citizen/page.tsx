@@ -47,7 +47,7 @@ export default function CitizenHomePage() {
         <StatCard label="Amount due" value={formatCurrency(s?.unpaid_amount ?? 0)} hint={`${s?.unpaid_count ?? 0} unpaid challans`} icon={WalletIcon} tone="warning" loading={summary.loading} />
         <StatCard label="Overdue" value={s?.overdue_count ?? 0} hint="Past the due date" icon={AlertTriangleIcon} tone="danger" loading={summary.loading} />
         <StatCard label="Paid" value={s?.paid_count ?? 0} hint="Settled challans" icon={FileTextIcon} tone="success" loading={summary.loading} />
-        <StatCard label="Pending appeals" value={s?.pending_appeals ?? 0} hint={`${s?.vehicles ?? 0} vehicle(s) linked`} icon={ClockIcon} loading={summary.loading} />
+        <StatCard label="Pending appeals" value={s?.pending_appeals ?? 0} hint="Awaiting a decision" icon={ClockIcon} loading={summary.loading} />
       </div>
 
       <Card>
@@ -67,7 +67,7 @@ export default function CitizenHomePage() {
             <ul className="divide-y">
               {unpaid.data.results.map((challan) => (
                 <li key={challan.id}>
-                  <Link href={`/citizen/challans/${challan.id}`} className="flex flex-wrap items-center gap-3 py-3 hover:bg-muted/40 sm:px-2">
+                  <Link href={`/citizen/challans/${challan.id}`} className="flex flex-wrap items-center gap-3 py-3 rounded-lg hover:bg-muted/50 sm:px-2">
                     <PlateBadge plate={challan.plate_number} />
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium">{challan.items.map((item) => item.name).join(", ")}</p>
@@ -75,6 +75,7 @@ export default function CitizenHomePage() {
                     </div>
                     <span className="text-sm font-semibold tabular-nums">{formatCurrency(challan.total_fine)}</span>
                     <StatusBadge status={challanStatus(challan)} />
+                    <span className="btn-glow rounded-lg px-3 py-1.5 text-xs font-semibold text-primary-foreground">Pay now</span>
                   </Link>
                 </li>
               ))}
