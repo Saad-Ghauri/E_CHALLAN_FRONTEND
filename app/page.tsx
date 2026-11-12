@@ -36,10 +36,10 @@ const CITIZEN_FEATURES = [
 const DETECTORS = ["Wrong-way driving", "Red-light running", "Illegal parking", "Triple riding"]
 
 const FACTS = [
-  { value: "4", label: "violations detected from video" },
-  { value: "2", label: "portals: citizens and officers" },
-  { value: "100%", label: "of challans have an audit trail" },
-  { value: "0", label: "challans issued without human review" },
+  { value: "Photo + video", label: "plate recognition input" },
+  { value: "4", label: "violations detected in video" },
+  { value: "Citizen + officer", label: "separate areas, one system" },
+  { value: "Officer review", label: "before a challan is issued" },
 ]
 
 export default function HomePage() {
@@ -71,7 +71,7 @@ export default function HomePage() {
               </Button>
             </div>
             <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
-              {["No account needed to check", "Every decision reviewed by an officer", "Full audit trail"].map((t) => (
+              {["No account needed to check", "Every challan reviewed by an officer", "Audit log of actions"].map((t) => (
                 <li key={t} className="flex items-center gap-1.5">
                   <CheckCircle2Icon className="size-4 text-emerald-500" /> {t}
                 </li>
@@ -96,7 +96,7 @@ export default function HomePage() {
         <div className="glass grid grid-cols-2 divide-x divide-border rounded-2xl py-5 md:grid-cols-4">
           {FACTS.map((f) => (
             <div key={f.label} className="px-5 py-2 text-center">
-              <p className="font-heading text-3xl font-extrabold text-brand">{f.value}</p>
+              <p className="font-heading text-xl font-extrabold text-brand sm:text-2xl">{f.value}</p>
               <p className="mt-1 text-xs text-muted-foreground">{f.label}</p>
             </div>
           ))}
